@@ -40,6 +40,15 @@ app.config.from_envvar("CUBEDASH_SETTINGS", silent=True)
 app.jinja_env.add_extension("jinja2.ext.do")
 
 app.config.setdefault("CACHE_TYPE", "null")
+
+# Global defaults
+app.config.from_mapping(
+    dict(
+        CUBEDASH_DEFAULT_API_LIMIT=500,
+        CUBEDASH_HARD_API_LIMIT=4000,
+    )
+)
+
 cache = Cache(app=app, config=app.config)
 
 cors = (

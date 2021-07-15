@@ -4,12 +4,11 @@
 {% block title %}About Explorer{% endblock %}
 {% block head %}
     {{ super() }}
-    <style type="text/css">
+    <style>
 
         .uri-path {
             margin-bottom: 15px;
             display: block;
-
         }
 
         .path-variable {
@@ -40,16 +39,13 @@
         </p>
     </div>
 
-    <div class="panel">
-        <h3>Extents and summaries</h3>
-    </div>
+
 
     <div class="panel">
         <h3>Datacube Resources</h3>
 
         Datacube-ready config and metadata can be downloaded from Explorer programatically:
 
-        <h4>Individual</h4>
         <ul>
             <li>
                 A dataset:
@@ -69,28 +65,61 @@
                     {{ explorer_root_url}}metadata-types/<span class="path-variable">Metadata Type Name</span>.odc-type.yaml
                 </span>
             </li>
-        </ul>
-
-
-        <h4>All</h4>
-        <ul>
             <li>
-                All Product definitions:
+                All Products:
                 <span class="uri-path">
-                    <a href="{{ url_for('product.raw_all_products_doc', _external=True) }}">{{ url_for('product.raw_all_products_doc', _external=True) }}</a>
+                    {{ url_for('product.raw_all_products_doc', _external=True) }}
                 </span>
             </li>
             <li>
-                All Metadata Type definitions:
+                All Metadata Types:
                 <span class="uri-path">
-                    <a href="{{ url_for('product.raw_all_metadata_types_doc', _external=True) }}">{{ url_for('product.raw_all_metadata_types_doc', _external=True) }}</a>
+                    {{ url_for('product.raw_all_metadata_types_doc', _external=True) }}
+                </span>
+            </li>
+        </ul>
+    </div>
+
+    <div class="panel odd">
+        <h3>Extents and Summaries</h3>
+        Extent data displayed by Explorer can be downloaded as GeoJSON
+        <ul>
+            <li>
+                Total footprint
+                <span class="uri-path">
+                    {{ explorer_root_url}}api/footprint/<span class="path-variable">Product Name</span><br/>
+                    {{ explorer_root_url}}api/footprint/<span class="path-variable">Product Name</span>/<span class="path-variable">Year</span><br/>
+                    {{ explorer_root_url}}api/footprint/<span class="path-variable">Product Name</span>/<span class="path-variable">Year</span>/<span class="path-variable">Month</span><br/>
+                    {{ explorer_root_url}}api/footprint/<span class="path-variable">Product Name</span>/<span class="path-variable">Year</span>/<span class="path-variable">Month</span>/<span class="path-variable">Day</span><br/>
+                </span>
+            </li>
+            <li>
+                Region footprints
+                <span class="uri-path">
+                    {{ explorer_root_url}}api/regions/<span class="path-variable">Product Name</span><br/>
+                    {{ explorer_root_url}}api/regions/<span class="path-variable">Product Name</span>/<span class="path-variable">Year</span><br/>
+                    {{ explorer_root_url}}api/regions/<span class="path-variable">Product Name</span>/<span class="path-variable">Year</span>/<span class="path-variable">Month</span><br/>
+                    {{ explorer_root_url}}api/regions/<span class="path-variable">Product Name</span>/<span class="path-variable">Year</span>/<span class="path-variable">Month</span>/<span class="path-variable">Day</span><br/>
+                </span>
+            </li>
+            <li>
+                Dataset footprints
+                <span class="muted">
+                    (<tt>?limit={{ config['CUBEDASH_DEFAULT_API_LIMIT'] }}</tt> by default,
+                    can be increased up to {{ config["CUBEDASH_HARD_API_LIMIT"] }} on this host)
+                </span>
+                <span class="uri-path">
+                    {{ explorer_root_url}}api/datasets/<span class="path-variable">Product Name</span><br/>
+                    {{ explorer_root_url}}api/datasets/<span class="path-variable">Product Name</span>/<span class="path-variable">Year</span><br/>
+                    {{ explorer_root_url}}api/datasets/<span class="path-variable">Product Name</span>/<span class="path-variable">Year</span>/<span class="path-variable">Month</span><br/>
+                    {{ explorer_root_url}}api/datasets/<span class="path-variable">Product Name</span>/<span class="path-variable">Year</span>/<span class="path-variable">Month</span>/<span class="path-variable">Day</span><br/>
                 </span>
             </li>
         </ul>
     </div>
 
     <div class="panel">
-         <h3>Audit and Summaries</h3>
+         <h3>Audit and Examine</h3>
 
         Much of Explorer's audit pages are available in CSV or text format.
 
